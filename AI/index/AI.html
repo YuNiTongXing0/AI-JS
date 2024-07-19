@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>大可智能绘图</title>
+    <link rel="icon" href="../images/logo.png"/>
+    <style>
+         *{
+        padding: 0px 0px;
+        margin: 0px 0px;
+        }
+        li{
+            list-style: none;
+        }
+        a {
+            text-decoration:none;
+        }
+        .banxin{
+            width: 1000px;
+            margin: 0px auto;
+        }
+        #loader {
+            width: 50px;
+            padding: 8px;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            background: #999;
+            position: absolute;   
+            left: 450px;
+            display: none;
+            --_m: 
+            conic-gradient(#0000 10%,#000),
+            linear-gradient(#000 0 0) content-box;
+            -webkit-mask: var(--_m);
+                    mask: var(--_m);
+            -webkit-mask-composite: source-out;
+                    mask-composite: subtract;
+            animation: l3 1s infinite linear;
+            }
+            @keyframes l3 {to{transform: rotate(1turn)}}
+            #loader::before,
+            #loader::after {
+            content: "";
+            grid-area: 1/1;
+            border-radius: 50%;
+            background: inherit;
+            opacity: 0.915;
+            transform: rotate(30deg);
+            }
+            #loader::after {
+            opacity: 0.83;
+            transform: rotate(60deg);
+            }
+            @keyframes l23 {
+            100% {transform: rotate(1turn)}
+            }
+            #countdown {
+            --w:50ch;
+            position: absolute;
+            top: -550px;
+            left: 425px;
+            font-weight: bold;
+            font-family: monospace;
+            font-size: 16px;
+            line-height: 1.4em;
+            letter-spacing: var(--w);
+            width: var(--w);
+            overflow: hidden;
+            white-space: nowrap;
+            color: #0000;
+            text-shadow: 
+                    calc( 0*var(--w)) 0 #000,calc(-1*var(--w)) 0 #000,calc(-2*var(--w)) 0 #000,calc(-3*var(--w)) 0 #000,calc(-4*var(--w)) 0 #000, 
+                    calc(-5*var(--w)) 0 #000,calc(-6*var(--w)) 0 #000,calc(-7*var(--w)) 0 #000,calc(-8*var(--w)) 0 #000,calc(-9*var(--w)) 0 #000;
+            animation: l20 2s infinite linear;
+            }
+        header{
+            height: 50px;
+            background-color:rgb(139, 139, 139);
+        }
+        .header_lis{
+            width: 1000px;
+            margin: 0px auto;
+        }
+        .header_lis img{
+            width: 100%;
+            height: 100%;
+        }
+        .header_lis ul{
+            height: 50px;
+            font-size: 12px;
+        }
+        .header_lis ul li{
+            float: left;
+            font-size: 14px;
+            font-weight: 600;
+            text-align: center;
+            margin: 0px 20px;
+            line-height: 50px;
+        }
+        .header_lis ul li a{
+            display: block;
+            width: 90px;
+            color: #000;
+        }
+        .header_lis ul li:hover{
+            background-color: #2b2828;
+            color: #fff;
+            border-bottom:2px solid #52f019 ;
+        }
+        .header_lis ul a:hover{
+            color: #fff;
+        }
+        .header_lis img{
+            position: absolute;
+            left: 10px;
+            width: 80px;
+            height: 50px;
+        }
+        .header_lis ul li:nth-child(1){
+            float: left;
+            width: 150px;
+            height: 30px;
+            font-size: 14px;
+            margin-right: 20px;
+        }
+        .header_lis ul li:nth-child(1):hover{
+            background: none;
+            color: #000;
+            border: none;
+        }
+        .kuozhan{
+            position: absolute;
+            display: none;
+            left: 340px;
+            top: 50px;
+            background-color: #d9d5d5;
+            width: 90px;
+            z-index: 99;
+        }
+        .kuozhan a{
+            border-bottom: 1px solid #fff;
+        }
+        .header_lis ul li:hover .kuozhan{
+            display: block;
+        }
+    </style>
+</head>
+<link rel="stylesheet" href="../css/AI.css">
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
+<body>
+    <div class="box">
+        <div class="logo" style="margin-top:60px; margin-left: auto;">
+            <img src="../images/logo.png" alt="">
+        </div>
+        <!--输入框--> 
+        <div class="input">
+            <input type="text" id="inputvalue" placeholder="请输入文字 enter发送" >
+            <a href="javascript:;" id="dianji"><img style="width: 20px;position: absolute; right: 220px;top: 10px;" src="../images/fasong.png" alt=""></a>
+    </div>
+        <!--生成的图片盒子--> 
+    <div class="xianshi_box" style="z-index: 99;">
+        <!--加载动画--> 
+        <div id="loader"></div>
+        <!--生成展示--> 
+        <div class="image-container" id="biaoshi-1">   
+            <img style="width: 50px; position: absolute; left: 50px;top: -45px;" src="../images/log.png" alt="">
+            <img src="../images/cheng.jpg" alt="照片1标识文字:标识1">  
+        </div>  
+        <div class="image-container" id="biaoshi-2">  
+            <img style="width: 50px; position: absolute; left:50px;top: -45px;" src="../images/log.png" alt="">
+            <img src="../images/chenguo1.jpg" alt="照片2标识文字:标识2">  
+        </div> 
+        <div class="image-container" id="biaoshi-3">  
+            <img style="width: 50px; position: absolute; left:50px;top: -45px;" src="../images/log.png" alt="">
+            <video class="sp" style="width: 100% ; height: 400px;margin-top: 40px;" src="../images/ai生成别墅.mp4" autoplay controls loop muted></video> 
+        </div>
+        <div class="image-container" id="biaoshi-4">  
+            <img style="width: 50px; position: absolute; left:50px;top: -45px;" src="../images/log.png" alt="">
+            <video class="sp" style="width: 100% ; height: 400px;margin-top: 40px;" src="../images/ai生成别墅.mp4" autoplay controls loop muted></video> 
+        </div> 
+    </div>
+     <!--弹出收费页面--> 
+    <div class="shoufei_box" style="z-index: 99;">
+        <div id="countdown"></div>
+        <div id="targetDiv" style="width: 800px; height: 500px; background-color: #fff; display: none;">
+            <ul id="huiyuans">
+                <li style="background: linear-gradient(to right, rgba(74, 206, 204, 0.6), rgba(52, 152, 219, 0.6));"><p style="font-size: 16px;">12个月</p><small>￥<small style="font-size: 24px;font-weight: 700;">188</small></small><p style="text-decoration: line-through;">原价￥388</p></li>
+                <li><p style="font-size: 16px;">3个月</p><small>￥<small style="font-size: 24px;font-weight: 700;">55</small></small><p style="text-decoration: line-through;">原价￥96</p></li>
+                <li><p style="font-size: 16px;">1个月</p><small>￥<small style="font-size: 24px;font-weight: 700;">19</small></small><p style="text-decoration: line-through;">原价￥32</p></li>
+                <li><p style="font-size: 16px;">永久会员</p><small>￥<small style="font-size: 24px;font-weight: 700;">388</small></small><p style="text-decoration: line-through;">原价￥788</p></li>
+            </ul>
+            <div>
+                <ul id="fukuan">
+                    <!-- <li style="background-color: #eae6e6;">支付方式：</li> -->
+                    <li id="click_zfb">
+                        <img style="width: 20px; height: 20px;position: absolute;top: 123px;left: 234px;" src="../images/支付宝logo.jpg" alt="">
+                        <small>支付宝</small>
+                        <input style="position: absolute;top: 127px;left: 310px;" type="checkbox" checked="checkbox">
+                    </li>
+                    <li id="click_wx">
+                        <img style="width: 20px; height: 20px;position: absolute;top: 123px;left: 468px;" src="../images/微信收款logo.jpg" alt="">
+                        <small>微信</small>
+                        <input  style="position: absolute;top: 127px;left: 530px;"  type="checkbox">
+                    </li>
+                </ul>
+                <div id="ewm">
+                    <div id="zfb_box">
+                        <img src="../images/支付宝收款码.png" alt="">
+                    </div>
+                    <div id="wx_box">
+                        <img src="../images/微信收款码.png" alt="">
+                    </div>
+                </div>
+               
+            </div>
+        <!-- <img src="../images/gongzhonghao.jpg" alt=""> -->
+        </div>
+    </div>
+    <div class="tishi" style= "position: absolute; top: 400px;">
+        <ul>
+            <ol><h4 style="font-weight: 200;"><img src="../images/房屋.png" alt=""> <p style="padding-left: 30px; line-height: 30px;">试试这些超长文本的例子~</p></h4></ol>
+            <li><img src="../images/流程.png" alt="" style="position: absolute; top: 50px;left: 220px;"><p style="padding-left:48px ;">别墅建设的流程视频</p></li>
+            <li><img src="../images/酒店.png" alt="" style="position: absolute; top: 110px;left: 220px;"><p style="padding-left:48px;">酒店的大厅应该怎样布局?</p></li>
+            <li><img src="../images/别墅.png" alt="" style="position: absolute; top: 173px;left: 220px;"><p style="padding-left:48px;">建模拟设一个豪华别墅</p></li>
+        </ul>
+        </ul>
+    </div>
+</body>
+<script>
+    const jiazai = document.getElementById('loader'); 
+    const inputvalue = document.getElementById('inputvalue');
+            inputvalue.addEventListener('keydown',function(event){
+                if(event.key === 'Enter'){
+                    jiazai.style.display = 'block';
+                    setTimeout(function() {  
+                        jiazai.style.display = 'none';
+                }, 3000); 
+                    const inputText = document.getElementById('inputvalue').value;  
+                // 获取所有图片容器  
+                    const imageContainers = document.querySelectorAll('.image-container');  
+                // 隐藏所有图片容器  
+                    imageContainers.forEach(container => {  
+                    container.style.display = 'none';  
+                    });  
+                    // 定义标识文字与图片容器的对应关系  
+                    const identifierImageMap = {  
+                        '民': 'biaoshi-1',  
+                        '大厅': 'biaoshi-2','前台':'biaoshi-2',  '现代风格':'biaoshi-2',
+                        '红色瓦房': 'biaoshi-3','房屋设计': 'biaoshi-3','房屋改造': 'biaoshi-3',      
+                        '大厦': 'biaoshi-4','写字楼': 'biaoshi-4','别墅': 'biaoshi-4',    
+                        // 添加更多标识与图片容器的对应关系 
+                    };  
+                    //setTimeout方法，制造网络延迟1秒
+                    setTimeout(function() {  
+                          // 遍历标识文字与图片容器的对应关系  
+                    for (const identifier in identifierImageMap) {  
+                        if (inputText.includes(identifier)) {  
+                            // 如果输入文本包含标识文字，则显示对应的图片容器  
+                            const imageContainerId = identifierImageMap[identifier];  
+                            const imageContainer = document.getElementById(imageContainerId);  
+                            imageContainer.style.display = 'block';  
+                            break; // 找到匹配项后退出循环，避免显示多个图片 
+                            imageContainer.style.display = 'none';   
+                        }
+                    }
+                }, 3000);
+                        var countdownDiv = document.getElementById('countdown');  
+                        var targetDiv = document.getElementById('targetDiv');  
+                        var countdown = 13;  
+                        var countdownInterval = setInterval(function() {  
+                        countdown--;  
+                        countdownDiv.textContent = '会员专享:' + countdown + '秒试看中';  
+                            if (countdown <= 0) {  
+                                clearInterval(countdownInterval); 
+                                targetDiv.style.display = 'block'; // 显示目标div  
+                                countdownDiv.textContent = '开通会员畅享高清原图'; // 更新倒计时div的内容  
+                            }
+                }, 1000);
+                        }
+                    })
+                    const click_zfb =  document.getElementById('click_zfb');
+                    const click_wx =  document.getElementById('click_wx');
+                    const zfb_box =  document.getElementById('zfb_box');
+                    const wx_box =  document.getElementById('wx_box');
+                    click_zfb.addEventListener('click', function() {  
+                        zfb_box.style.display = 'block';  
+                        wx_box.style.display = 'none';  
+                    });  
+                  
+                    click_wx.addEventListener('click', function() {  
+                        zfb_box.style.display = 'none';  
+                        wx_box.style.display = 'block';  
+                        });
+                //     const dianji = document.getElementById('dianji').addEventListener('click', function() {  
+                //         jiazai.style.display = 'block';
+                //     setTimeout(function() {  
+                //         jiazai.style.display = 'none';
+                //     }, 1000); 
+                //     const inputText = document.getElementById('inputvalue').value;  
+                // // 获取所有图片容器  
+                //     const imageContainers = document.querySelectorAll('.image-container');  
+                // // 隐藏所有图片容器  
+                //     imageContainers.forEach(container => {  
+                //     container.style.display = 'none';  
+                //     });  
+                //     // 定义标识文字与图片容器的对应关系  
+                //     const identifierImageMap = {  
+                //         '民': 'biaoshi-1',  
+                //         '大厅': 'biaoshi-2','前台':'biaoshi-2',  '现代风格':'biaoshi-2',
+                //         '红色瓦房': 'biaoshi-3','房屋设计': 'biaoshi-3','房屋改造': 'biaoshi-3',      
+                //         '大厦': 'biaoshi-4','写字楼': 'biaoshi-4','别墅': 'biaoshi-4',    
+                        
+                //         // 添加更多标识与图片容器的对应关系 
+                //     };  
+                //     //setTimeout方法，制造网络延迟1秒
+                //     setTimeout(function() {  
+                //           // 遍历标识文字与图片容器的对应关系  
+                //     for (const identifier in identifierImageMap) {  
+                //         if (inputText.includes(identifier)) {  
+                //             // 如果输入文本包含标识文字，则显示对应的图片容器  
+                //             const imageContainerId = identifierImageMap[identifier];  
+                //             const imageContainer = document.getElementById(imageContainerId);  
+                //             imageContainer.style.display = 'block';  
+                //             break; // 找到匹配项后退出循环，避免显示多个图片  
+                //         }  
+                //     } 
+                // }, 1000);
+                //         var countdownDiv = document.getElementById('countdown');  
+                //         var targetDiv = document.getElementById('targetDiv');  
+                //         var countdown = 10;  
+                //         var countdownInterval = setInterval(function() {  
+                //         countdown--;  
+                //         countdownDiv.textContent = '会员专享:' + countdown + '秒试看中';  
+                //             if (countdown <= 0) {  
+                //                 clearInterval(countdownInterval); 
+                //                 targetDiv.style.display = 'block'; // 显示目标div  
+                //                 countdownDiv.textContent = '开通会员畅享高清原图'; // 更新倒计时div的内容  
+                //             }
+                // }, 1000);
+                // });
+        
+
+
+    </script>
+</script>
+</html>

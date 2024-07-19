@@ -1,0 +1,118 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+body{
+    background-color: #f3f5fc;
+}
+.box{
+    width: 1020px;
+    margin:0 auto;
+}
+.logo{
+    text-align: center;
+}
+.logo img{
+    width:200px;
+    height: 200px;
+}
+.input{
+    text-align: center;
+    position: relative;
+}
+.input input{
+    width: 600px;
+    height: 40px;
+    border-radius: 10px;
+    box-shadow: 5px 5px 5px #888888;
+    outline: none;
+}
+.xianshi_box{
+    position: relative;
+    width: 1020px;
+    margin: 30px;
+}
+.image-container {  
+    background-color: #fff;
+    margin: 0px auto;
+    border-radius:10px;
+    width: 800px;
+    height: 500px;
+    display: none;/* 初始时隐藏所有图片容器 */  
+    text-align: center; /* 图片居中显示 */  
+}  
+.image-container img{
+    width: 600px;
+    margin-top: 40px;
+}
+.shoufei_box{
+    width: 1020px;
+    height: 500px;
+    margin: 30px;
+   position: absolute;
+}
+#targetDiv{
+    position: relative;
+    top: -530px;
+    margin: 0px auto;
+    border-radius:10px;
+    text-align: center;
+}
+.tishi{
+    width: 1020px;
+    position: relative;
+}
+.tishi ul{
+    width: 600px;
+    height: 100%;
+    margin: 0px auto;
+    font-weight: 200;
+}
+.tishi ul li{
+    height: 50px;
+    line-height: 50px;
+    background-color: #fff;
+    border: 1px solid #999;
+    border-radius: 10px;
+    margin: 10px 0px;
+}
+.tishi img{
+    width: 30px;
+    height: 30px;
+    position: absolute;
+}
+#huiyuans{
+    display: flex;
+    justify-content: center;
+    padding-top: 10px;
+}
+#huiyuans li{
+    width: 100px;
+    height: 80px;
+    margin: 0px 30px;
+    /* background: linear-gradient(to right, rgba(74, 206, 204, 0.6), rgba(52, 152, 219, 0.6)); */
+    border-radius: 10px;
+    border: 1px solid #a4b73c;
+}
+#fukuan{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    text-align: center;
+}
+#fukuan li{
+    width: 130px;
+    height: 40px;
+    line-height: 40px;
+    background-color: #eae6e6;
+    border-radius: 15px;
+    margin: 0px 50px;
+}
+#wx_box{
+    display: none;
+}
+#ewm img{
+    width: 200px;
+    margin-top: 30px;
+}
+
